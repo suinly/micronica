@@ -1,0 +1,8 @@
+<?php
+/*
+ * Micronica
+ */
+
+echo "Micronica";
+
+?>
