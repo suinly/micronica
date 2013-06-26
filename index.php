@@ -3,6 +3,8 @@
  * Micronica
  */
 
-echo "<h1>Micronica</h4>";
+include_once('core/include.inc.php');
+
+echo "<h1>" . Config::get('BLOG_TITLE') . "</h4>";
 
 ?>

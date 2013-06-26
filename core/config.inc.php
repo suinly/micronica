@@ -3,6 +3,11 @@
  * Configuretion file
  */
 
-define('BLOG_TITLE', 'Micronica');
+Config::set('BLOG_TITLE', 'Micronica');
 
-?>
+/**
+ * Routes config
+ * 
+ * index.php?controller=DEFAULT_CONTROLLER?action=DEFAULT_ACTION
+ */
+Config::set('DEFAULT_CONTROLLER', 'posts');
