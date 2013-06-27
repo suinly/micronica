@@ -15,12 +15,6 @@ class Config {
 	private static $DEFAULT_ACTION;
 
 	/**
-	 * Default paths
-	 */
-	private static $PATH_ROOT;
-	private static $PATH_CORE;
-
-	/**
 	 * Set static variable method
 	 */
 	public static function set($key = null, $value = null) {
