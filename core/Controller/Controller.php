@@ -1,10 +1,14 @@
 <?php
 
 class Controller {
-	public $controller;
-	public $action;
+	static $controller;
+	static $action;
 	public $layout = 'default';
 	public $requestType;
+	static $access = array(
+		'posts' => array('index', 'view'),
+		'users' => array('login', 'logout')
+	);
 
 	function __construct() {
 		$this->View = new View;
@@ -25,5 +29,11 @@ class Controller {
 
 	protected function set($key = null, $value = null, $type = 'data') {
 		$this->View->set($key, $value, $type);
+	}
+
+	public function redirect($url = null) {
+		if ($url != null) {
+			header("Location: " . $url);
+		}
 	}
 }

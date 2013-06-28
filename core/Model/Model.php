@@ -69,7 +69,7 @@ class Model {
 
 		switch ($type) {
 			case 'all':
-				$query = "SELECT " . implode(',', $this->fields) . " FROM " . $this->table;
+				$query = "SELECT " . implode(',', $this->fields) . " FROM " . $this->table . " ORDER BY created DESC";
 				if (isset($options) && $options['limit']) {
 					$query .= " LIMIT " . $options['limit'];
 				}
@@ -98,7 +98,7 @@ class Model {
 			}
 
 			$query = "INSERT INTO " . $this->table . " (" . implode(',', array_keys($data)) . ") VALUES(" . implode(',', $data) . ");";
-			debug($query);
+			
 			$this->query($query);
 		}
 	}

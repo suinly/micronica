@@ -33,6 +33,29 @@ if (file_exists(PATH_CONTROLLER . ucfirst($controller) . 'Controller.php')) {
 	die('<h1>Controller ' . ucfirst($controller) . ' not found!</h1>');
 }
 
+
+// access
+$deny = true;
+
+if (!isset($_SESSION['User'])) {
+	// проверяем текущий контроллер
+	foreach (Controller::$access as $c => $a) {
+		if ($c == $controller && $c = '*') {
+			foreach ($a as $v) {
+				if ($v == $action && $v = '*') {
+					$deny = false;
+					break;
+				}
+			}
+		}
+	}
+
+	if ($deny) {
+		Controller::redirect('/users/login');
+	}
+}
+
+
 /**
  * Checking method.
  */

@@ -15,7 +15,23 @@ class UsersController extends Controller {
 	}
 
 	public function login() {
-		
+		if ($this->requestType == 'post') {
+			$user = $this->User->query("SELECT * 
+										FROM users 
+										WHERE `username`='" . $this->data['username'] . "' 
+										AND `password`='" . password($this->data['password']) .  "'");
+			if($user->num_rows > 0) {
+				$_SESSION['User'] = $user->fetch_assoc();
+				$this->redirect('/');
+			} else {
+				echo "BAD LOGIN OR PASSWORD";
+			}
+		}
+	}
+
+	public function logout() {
+		unset($_SESSION['User']);
+		$this->redirect('/users/login');
 	}
 }
 

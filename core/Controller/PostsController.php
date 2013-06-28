@@ -13,6 +13,14 @@ class PostsController extends Controller {
 			$this->set('post', $this->Post->read($id));
 		}
 	}
+
+	public function add() {
+		if ($this->requestType == 'post') {
+			$this->data['user_id'] = $_SESSION['User']['id'];
+			$this->Post->create($this->data);
+			$this->redirect('/');
+		}
+	}
 }
 
 $posts = new PostsController;
