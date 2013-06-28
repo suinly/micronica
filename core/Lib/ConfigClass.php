@@ -1,25 +1,14 @@
 <?php
 
 class Config {
-	/**
-	 * Blog title string
-	 */
-	private static $BLOG_TITLE;
-
-	/**
-	 * Routes config
-	 * 
-	 * index.php?section=DEFAULT_CONTROLLER?action=DEFAULT_ACTION
-	 */
-	private static $DEFAULT_CONTROLLER;
-	private static $DEFAULT_ACTION;
+	private static $cfg = array();
 
 	/**
 	 * Set static variable method
 	 */
 	public static function set($key = null, $value = null) {
 		if ($key != null && $value != null) {
-			self::$$key = $value;
+			self::$cfg[$key] = $value;
 			return true;
 		} else {
 			return false;
@@ -31,7 +20,7 @@ class Config {
 	 */
 	public static function get($key = null) {
 		if ($key != null) {
-			return self::$$key;
+			return self::$cfg[$key];
 		} else {
 			return false;
 		}

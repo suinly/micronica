@@ -14,17 +14,24 @@ $action	= isset($_GET['action']) && !empty($_GET['action']) ? $_GET['action'] : 
  * Include required controllers.
  */
 if (file_exists(PATH_CONTROLLER . ucfirst($controller) . 'Controller.php')) {
+	require_once(PATH_VIEW . 'View.php');
+	
 	require_once(PATH_CONTROLLER . 'Controller.php');
 	require_once(PATH_CONTROLLER . ucfirst($controller) . 'Controller.php');
+
+	require_once(PATH_MODEL . 'Model.php');
+	require_once(PATH_MODEL . ucfirst(mb_substr($controller, 0, -1)) . '.php');
 } else {
-	die('<h1>Контроллер ' . ucfirst($controller) . ' не найден!</h1>');
+	die('<h1>Controller ' . ucfirst($controller) . ' not found!</h1>');
 }
 
 /**
  * Checking method.
  */
 if (method_exists($$controller, $action)) {
+	$$controller->controller = $controller;
+	$$controller->action = $action;
 	$$controller->$action();
 } else {
-	die('<h1>Метод ' . $action . '() не найден в контроллере ' . ucfirst($controller) . '!</h1>');
+	die('<h1>Method ' . $action . '() not found in controller ' . ucfirst($controller) . '!</h1>');
 }

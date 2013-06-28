@@ -2,8 +2,11 @@
 
 class PostsController extends Controller {	
 	public function index() {
-		echo "Контроллер: " . __CLASS__;
-		echo "<br>Метод: " . __METHOD__;
+		$this->Post = new Post;
+		$posts = $this->Post->find('all', array(
+			'limit' => 10
+		));
+		$this->set('posts', $posts);
 	}
 }
 

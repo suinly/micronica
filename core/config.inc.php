@@ -13,3 +13,12 @@ Config::set('BLOG_TITLE', 'Micronica');
 Config::set('DEFAULT_CONTROLLER', 	'posts');
 Config::set('DEFAULT_ACTION', 		'index');
 
+/**
+ * Database configuration
+ */
+Config::set('DB_HOST', 		'localhost');
+Config::set('DB_NAME', 		'micronica');
+Config::set('DB_USER', 		'micronica');
+Config::set('DB_PASS', 		'password');
+
+Config::set('DB_CHARSET', 	'utf8');
