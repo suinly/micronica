@@ -4,10 +4,15 @@ class Controller {
 	public $controller;
 	public $action;
 	public $layout = 'default';
+	public $requestType;
 
 	function __construct() {
 		$this->View = new View;
-		$this->Post = new Post;
+
+		if (isset($_POST) && !empty($_POST)) {
+			$this->data = $_POST;
+			$this->requestType = 'post';
+		}
 	}
 
 	function __destruct() {

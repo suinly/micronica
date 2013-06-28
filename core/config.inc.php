@@ -22,3 +22,8 @@ Config::set('DB_USER', 		'micronica');
 Config::set('DB_PASS', 		'password');
 
 Config::set('DB_CHARSET', 	'utf8');
+
+/**
+ * Secret string
+ */
+Config::set('SECRET', 'hjlMkeFzV6JebBYY3qEqIdLEKhAXncwOb1juq4Q');

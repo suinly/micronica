@@ -3,6 +3,7 @@
 class Model {
 	public $mysqli = false;	// mysql link
 	public $fields = array('id');
+	public $data;
 
 	/**
 	 * Constructor method
@@ -81,5 +82,24 @@ class Model {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Create object
+	 */
+	public function create($data = null) {
+		if ($data != null) {
+			if (!isset($data['create'])) {
+				$data['created'] = date("Y-m-d H:i:s");
+			}
+
+			foreach ($data as $key => $val) {
+				$data[$key] = inQuoutes("'", $val);
+			}
+
+			$query = "INSERT INTO " . $this->table . " (" . implode(',', array_keys($data)) . ") VALUES(" . implode(',', $data) . ");";
+			debug($query);
+			$this->query($query);
+		}
 	}
 }
