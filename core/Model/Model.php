@@ -69,9 +69,24 @@ class Model {
 
 		switch ($type) {
 			case 'all':
-				$query = "SELECT " . implode(',', $this->fields) . " FROM " . $this->table . " ORDER BY created DESC";
-				if (isset($options) && $options['limit']) {
-					$query .= " LIMIT " . $options['limit'];
+				$query = "SELECT " . implode(',', $this->fields) . " FROM " . $this->table;
+
+				if (count($options) > 0) {
+					if (isset($options['conditions'])) {
+						$query .= " WHERE (";
+						foreach ($options['conditions'] as $name => $condition) {
+							$query .= "`" . $name . "`='" . $condition . "'";
+						}
+						$query .= ")";
+					}
+
+					if (isset($options['order'])) {
+						$query .= " ORDER BY " . $options['order'];
+					}
+					
+					if (isset($options['limit'])) {
+						$query .= " LIMIT " . $options['limit'];
+					}
 				}
 
 				$res = $this->query($query);
@@ -94,12 +109,40 @@ class Model {
 			}
 
 			foreach ($data as $key => $val) {
-				$data[$key] = inQuoutes("'", $val);
+				$data[$key] = inQuoutes("'", h($val));
 			}
 
 			$query = "INSERT INTO " . $this->table . " (" . implode(',', array_keys($data)) . ") VALUES(" . implode(',', $data) . ");";
 			
-			$this->query($query);
+			if ($this->query($query) == 1) {
+				$result = $this->query('SELECT last_insert_id()')->fetch_assoc();
+				$this->id = $result['last_insert_id()'];
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * Update object
+	 */
+	public function update($id = null, $data = null) {
+		if ($id != null && $data != null) {
+			$data_string = "";
+			foreach ($data as $key => $val) {
+				$data[$key] = inQuoutes("'", h($val));
+				$data_string.= "`" . $key . "` = '" . h($val) . "',";
+			}
+			// remove last comma
+			$data_string = mb_substr($data_string, 0, -1);
+
+			$query = "UPDATE " . $this->table . " SET " . $data_string . " WHERE id=" . $id . ";";
+			if ($this->query($query) == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 }

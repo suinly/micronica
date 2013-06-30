@@ -27,13 +27,27 @@ class Controller {
 		$this->View->render();
 	}
 
+	/**
+	 * Set variables for View
+	 */
 	protected function set($key = null, $value = null, $type = 'data') {
 		$this->View->set($key, $value, $type);
 	}
 
+	/**
+	 * Redirect method
+	 */
 	public function redirect($url = null) {
 		if ($url != null) {
 			header("Location: " . $url);
 		}
+	}
+
+	/**
+	 *	Loading another model
+	 */
+	public function loadModel($name) {
+		include(PATH_MODEL . $name . '.php');
+		$this->$name = new $name;
 	}
 }

@@ -31,7 +31,7 @@ class UsersController extends Controller {
 
 	public function logout() {
 		unset($_SESSION['User']);
-		$this->redirect('/users/login');
+		$this->redirect('/');
 	}
 }
 

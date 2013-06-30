@@ -24,4 +24,8 @@ function password($string = null) {
 
 function inQuoutes($quote = "'", $str = null) {
 	return $quote . $str . $quote;
-} 
+}
+
+function h($str) {
+	return htmlspecialchars($str);
+}
